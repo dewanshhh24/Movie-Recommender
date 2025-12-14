@@ -96,8 +96,12 @@ http://localhost:5173
 
 📌 Future Improvements :
 
-Sort recommendations by rating or popularity
-Genre weightage slider
-Save user preferences (localStorage)
-Deploy backend & frontend (Render + Vercel)
-Add collaborative filtering
+⭐ Sort recommendations by rating or popularity
+
+🎚 Genre weightage slider
+
+💾 Save user preferences (localStorage)
+
+☁️ Deploy backend & frontend (Render + Vercel)
+
+🧠 Add collaborative filtering
