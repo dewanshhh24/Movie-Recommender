@@ -13,10 +13,10 @@ body {
     linear-gradient(rgba(2, 6, 23, 0.24), rgba(2, 6, 23, 0.85)),
     url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba");
   background-size: cover;
-  border-color: beige;
   background-position: center;
   background-attachment: fixed;
   color: #e5e7eb;
+  overflow-x: hidden;
 }
 
 /* ===================== APP LAYOUT ===================== */
@@ -25,18 +25,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6vh 4vw;
+  padding: 40px 20px;
 }
 
 /* ===================== GLASS CONTAINER ===================== */
 .glass-container {
-  width: min(95%, 1100px);
-  padding: clamp(28px, 5vw, 64px);
+  width: 100%;
+  max-width: 1100px;
+  padding: 48px;
   border-radius: 24px;
-  background: rgba(2, 6, 23, 0.1);
-  box-shadow:
-  
-  0 0  12px #590d22;
+  background: rgba(2, 6, 23, 0.5);
+  box-shadow: 0 0 12px #590d22;
   backdrop-filter: blur(18px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   animation: fadeUp 0.8s ease;
@@ -49,13 +48,13 @@ body {
 }
 
 .header h1 {
-  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-size: 3rem;
   font-weight: 700;
+  margin-bottom: 12px;
 }
 
 .header p {
-  margin-top: 12px;
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  font-size: 1.1rem;
   color: #9ca3af;
 }
 
@@ -70,7 +69,9 @@ body {
 }
 
 .search-section input {
-  width: min(420px, 100%);
+  flex: 1;
+  min-width: 250px;
+  max-width: 420px;
   padding: 16px;
   font-size: 1rem;
   border-radius: 14px;
@@ -97,11 +98,19 @@ body {
 }
 
 .search-section button:hover {
-  
   box-shadow:
     0 0 36px #590d22,
-  0 0 1px #c9184a;
-  border: #590d22;
+    0 0 1px #c9184a;
+}
+
+.reset-btn {
+  background: linear-gradient(135deg, #475569, #1e293b) !important;
+}
+
+.reset-btn:hover {
+  box-shadow:
+    0 0 36px #475569,
+    0 0 1px #64748b !important;
 }
 
 /* ===================== ERROR ===================== */
@@ -109,6 +118,42 @@ body {
   text-align: center;
   color: #f87171;
   margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+
+/* ================= GENRE MULTI SELECT ================= */
+.genre-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin: 24px 0 20px;
+}
+
+.genre-btn {
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(15, 23, 42, 0.6);
+  color: #e5e7eb;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.genre-btn:hover {
+  background: transparent;
+  transform: translateY(-2px);
+  border-color: #c9184a;
+}
+
+.genre-btn.active {
+  background: linear-gradient(135deg, #c9184a, #590d22);
+  color: white;
+  border-color: transparent;
+  box-shadow:
+    0 0 12px #590d22,
+    0 0 24px rgba(99, 102, 241, 0.25);
 }
 
 /* ===================== MOVIES GRID ===================== */
@@ -127,24 +172,18 @@ body {
   border-radius: 18px;
   text-align: center;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow:
-    0 0 0 rgba(56, 189, 248, 0),
-    inset 0 0 0 rgba(56, 189, 248, 0);
-
   transition:
     transform 0.25s ease,
     box-shadow 0.35s ease,
     border-color 0.35s ease;
 }
 
-
 .movie-card:hover {
   transform: scale(1.03);
   border-color: #590d22;
-
-  box-shadow:
-    0 0  12px #590d22;
+  box-shadow: 0 0 12px #590d22;
 }
+
 .movie-card::before {
   content: "";
   position: absolute;
@@ -165,237 +204,30 @@ body {
   opacity: 0.1;
 }
 
-
-
 .movie-card h3 {
-  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+  font-size: 1rem;
   font-weight: 500;
   color: #e5e7eb;
+  line-height: 1.4;
 }
 
-/* ===================== ANIMATIONS ===================== */
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ===================== RESPONSIVE BREAKPOINTS ===================== */
-
-/* Tablets */
-@media (max-width: 900px) {
-  .glass-container {
-    width: 100%;
-  }
-
-  .movies-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  }
-}
-
-/* Large Mobile */
-@media (max-width: 600px) {
-  .header h1 {
-    font-size: 2rem;
-  }
-
-  .search-section {
-    flex-direction: column;
-  }
-
-  .search-section input,
-  .search-section button {
-    width: 100%;
-  }
-
-  .movies-grid {
-    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-  }
-}
-
-/* Small Mobile */
-@media (max-width: 480px) {
-  .glass-container {
-    padding: 22px 18px;
-    border-radius: 18px;
-  }
-
-  .header h1 {
-    font-size: 1.7rem;
-  }
-
-  .movie-card {
-    padding: 16px;
-  }
-}
-
-/* ================= GENRE MULTI SELECT ================= */
-
-.genre-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
-  margin: 24px 0 20px;
-}
-
-/* Base chip */
-.genre-btn {
-  padding: 10px 18px;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background: rgba(15, 23, 42, 0.6);
-  color: #e5e7eb;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-/* Hover */
-.genre-btn:hover {
-  background: transparent;
-  transform: translateY(-2px);
-  border-color: #c9184a;
-}
-
-/* Selected / Active */
-.genre-btn.active {
-  background: linear-gradient(135deg, #c9184a, #590d22);
-  color: white;
-  border-color: transparent;
-  box-shadow:
-    0 0 12px #590d22,
-    0 0 24px rgba(99, 102, 241, 0.25);
-}
-
-/* Mobile friendly */
-@media (max-width: 480px) {
-  .genre-btn {
-    padding: 12px 20px;
-    font-size: 1rem;
-  }
-}
-
-/* ================= CINEMA LOADER ================= */
-
-.loader-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(2, 6, 23, 0.92);
-  backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  animation: fadeIn 0.3s ease;
-}
-
-.cinema-loader {
-  text-align: center;
-  color: #e5e7eb;
-}
-
-.cinema-loader p {
-  margin-top: 18px;
-  font-size: 1.1rem;
-  letter-spacing: 0.5px;
-  opacity: 0.9;
-}
-
-/* Film strip animation */
-.film-strip {
-  width: 120px;
-  height: 60px;
-  border-radius: 10px;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      #111827 0px,
-      #111827 12px,
-      #facc15 12px,
-      #facc15 18px
-    );
-  animation: reel 1.2s linear infinite;
-  box-shadow:
-    0 0 20px rgba(250, 204, 21, 0.4),
-    0 0 40px rgba(250, 204, 21, 0.2);
-}
-
-/* Animations */
-@keyframes reel {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: 120px 0;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* Mobile scaling */
-@media (max-width: 480px) {
-  .film-strip {
-    width: 90px;
-    height: 45px;
-  }
-
-  .cinema-loader p {
-    font-size: 1rem;
-  }
-}
 /* ================= CLAPPERBOARD LOADER ================= */
-
 .loader-overlay {
   position: fixed;
   inset: 0;
   background: rgba(2, 6, 23, 0.95);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 9999;
 }
 
-
-
-/* TOP PART (MOVING) */
-.clapper-top {
-  width: 240px;
-  height: 60px;
-  background: repeating-linear-gradient(
-    45deg,
-    #000 0px,
-    #000 15px,
-    #fff 15px,
-    #fff 30px
-  );
-  border-radius: 6px 6px 0 0;
-  transform-origin: left bottom;
-  animation: clapperOpenClose 1s ease-in-out infinite;
-}
-
-/* ================= REALISTIC CLAPPERBOARD ================= */
-
 .clapper-container {
   width: 220px;
-  margin: 0 auto;
-  
   animation: clapperLevitate 2s ease-in-out infinite;
 }
 
-/* TOP STRIPED PART */
 .clapper-top {
   width: 220px;
   height: 35px;
@@ -409,13 +241,11 @@ body {
   border-radius: 4px 4px 0 0;
   transform-origin: left bottom;
   animation: clapperOpenClose 2s ease-in-out infinite;
-
 }
 
-.clapper-middle{
+.clapper-middle {
   height: 30px;
   width: 220px;
-  border-radius: 4px 4px 0 0;
   background: repeating-linear-gradient(
     135deg,
     #ffffff 0px,
@@ -424,17 +254,16 @@ body {
     #000000 36px
   );
 }
-/* BOTTOM BOARD */
+
 .clapper-bottom {
   width: 220px;
   height: 110px;
-  background: #1f2937; /* dark slate */
+  background: #1f2937;
   border-radius: 0 0 6px 6px;
   border: 2px solid #111827;
   position: relative;
 }
 
-/* Decorative white lines (like real clapper) */
 .clapper-bottom::before,
 .clapper-bottom::after {
   content: "";
@@ -453,9 +282,27 @@ body {
   bottom: 35px;
 }
 
-/* Animation */
+.loader-text {
+  margin-top: 20px;
+  font-size: 1.05rem;
+  color: #e5e7eb;
+  opacity: 0.9;
+}
+
+/* ===================== ANIMATIONS ===================== */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes clapperOpenClose {
-  0% {
+  0%, 100% {
     transform: rotate(0deg);
   }
   20% {
@@ -464,12 +311,10 @@ body {
   40% {
     transform: rotate(0deg);
   }
-  100% {
-    transform: rotate(0deg);
-  }
 }
+
 @keyframes clapperLevitate {
-  0% {
+  0%, 100% {
     transform: translateY(0px);
   }
   20% {
@@ -478,75 +323,228 @@ body {
   40% {
     transform: translateY(0px);
   }
-  100% {
-    transform: translateY(0px);
+}
+
+/* ===================== TABLET RESPONSIVE ===================== */
+@media screen and (max-width: 1024px) {
+  .glass-container {
+    padding: 36px !important;
+  }
+
+  .header h1 {
+    font-size: 2.5rem !important;
+  }
+
+  .movies-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+    gap: 18px !important;
   }
 }
 
-/* ================= MOBILE ================= */
-
-@media (max-width: 480px) {
-  .clapper-container,
-  .clapper-top,
-  .clapper-bottom {
-    width: 170px;
+/* ===================== MOBILE RESPONSIVE ===================== */
+@media screen and (max-width: 768px) {
+  body {
+    background-attachment: scroll !important;
   }
 
-  .clapper-top {
-    height: 45px;
+  .app {
+    padding: 20px 12px !important;
   }
 
-  .clapper-bottom {
-    height: 90px;
+  .glass-container {
+    padding: 32px 20px !important;
+    border-radius: 20px !important;
   }
-}
 
-
-
-/* TEXT */
-.loader-text {
-  margin-top: 20px;
-  font-size: 1.05rem;
-  color: #e5e7eb;
-  opacity: 0.9;
-}
-
-/* CLAPPER ANIMATION */
-@keyframes clapperOpenClose {
-  0% {
-    transform: rotate(0deg);
+  .header {
+    margin-bottom: 28px !important;
   }
-  20% {
-    transform: rotate(-35deg);
-  }
-  40% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-}
 
-/* MOBILE SCALE */
-@media (max-width: 480px) {
+  .header h1 {
+    font-size: 2rem !important;
+  }
+
+  .header p {
+    font-size: 1rem !important;
+  }
+
+  /* Stack search input and buttons vertically */
+  .search-section {
+    flex-direction: column !important;
+    gap: 12px !important;
+    margin-bottom: 24px !important;
+  }
+
+  .search-section input {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+    padding: 16px !important;
+    font-size: 1rem !important;
+    border-radius: 50px !important;
+  }
+
+  .search-section button {
+    width: 100% !important;
+    padding: 16px 32px !important;
+    font-size: 1rem !important;
+    border-radius: 50px !important;
+  }
+
+  /* Genre buttons in 2-column grid */
+  .genre-container {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+    margin: 24px 0 !important;
+  }
+
+  .genre-btn {
+    width: 100% !important;
+    padding: 14px 24px !important;
+    font-size: 0.95rem !important;
+    border-radius: 50px !important;
+  }
+
+  .genre-btn:hover {
+    transform: none !important;
+  }
+
+  /* Movies grid - 2 columns */
+  .movies-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 14px !important;
+    margin-top: 24px !important;
+  }
+
+  .movie-card {
+    padding: 16px !important;
+    border-radius: 14px !important;
+  }
+
+  .movie-card h3 {
+    font-size: 0.9rem !important;
+  }
+
+  .movie-card:hover {
+    transform: scale(1.02) !important;
+  }
+
   .clapper-container {
-    width: 160px;
+    width: 180px !important;
   }
 
   .clapper-top,
-  .clapper-bottom {
-    width: 160px;
-  }
-
-  .clapper-top {
-    height: 50px;
+  .clapper-middle {
+    width: 180px !important;
+    height: 28px !important;
   }
 
   .clapper-bottom {
-    height: 65px;
+    width: 180px !important;
+    height: 90px !important;
+  }
+}
+
+/* ===================== SMALL MOBILE ===================== */
+@media screen and (max-width: 480px) {
+  .app {
+    padding: 16px 10px !important;
   }
 
-  .loader-text {
-    font-size: 0.95rem;
+  .glass-container {
+    padding: 24px 16px !important;
+  }
+
+  .header h1 {
+    font-size: 1.75rem !important;
+  }
+
+  .header p {
+    font-size: 0.9rem !important;
+  }
+
+  .search-section input {
+    padding: 14px !important;
+  }
+
+  .search-section button {
+    padding: 14px 28px !important;
+  }
+
+  /* Single column for movies on very small screens */
+  .movies-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .genre-btn {
+    padding: 12px 20px !important;
+    font-size: 0.9rem !important;
+  }
+}
+
+/* ===================== LANDSCAPE MOBILE ===================== */
+@media screen and (max-height: 600px) and (orientation: landscape) {
+  .app {
+    padding: 12px !important;
+  }
+
+  .glass-container {
+    padding: 20px !important;
+  }
+
+  .header {
+    margin-bottom: 16px !important;
+  }
+
+  .header h1 {
+    font-size: 1.75rem !important;
+  }
+
+  .movies-grid {
+    margin-top: 16px !important;
+  }
+}
+
+/* ===================== RECOMMENDATIONS HEADING ===================== */
+.recommendations-heading {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #e5e7eb;
+  margin: 40px 0 20px;
+  padding: 20px;
+  background: transparent;
+  border-radius: 16px;
+  border: 1px solid rgba(201, 24, 74, 0.3);
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile responsive for heading */
+@media screen and (max-width: 768px) {
+  .recommendations-heading {
+    font-size: 1.5rem !important;
+    margin: 30px 0 16px !important;
+    padding: 16px !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .recommendations-heading {
+    font-size: 1.25rem !important;
+    padding: 14px !important;
   }
 }
