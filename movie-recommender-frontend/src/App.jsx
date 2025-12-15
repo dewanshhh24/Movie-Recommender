@@ -48,33 +48,53 @@ const resetApp = () => {
   setSelectedGenres([]); 
 };
 
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  const fetchRecommendations = async () => {
+const fetchRecommendations = async () => {
   setLoading(true);
   setError("");
 
   try {
-    const res = await fetch("http://127.0.0.1:5000/recommend", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        movie: movie || null,
-        genres: selectedGenres
+    const [res] = await Promise.all([
+      fetch("http://127.0.0.1:5000/recommend", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          movie: movie || null,
+          genres: selectedGenres,
+        }),
       }),
-    });
+      delay(3000), // 🎬 MINIMUM 3 SECOND LOADER
+    ]);
 
     const data = await res.json();
     setRecommendations(data.recommendations || []);
   } catch (err) {
-    setError("Backend is not running or an error occurred.");
+    setError("Backend is unreachable. Please try again later.");
   }
 
   setLoading(false);
 };
 
 
+
+
   return (
   <div className="app">
+  {loading && (
+  <div className="loader-overlay">
+    <div className="clapper-container">
+      
+      <div className="clapper-top"></div>
+      <div className="clapper-middle"></div>
+      <div className="clapper-bottom"></div>
+
+      
+    </div>
+  </div>
+)}
+
+
     <div className="glass-container">
       <header className="header">
         <h1>🍿Movie Recommender🍿</h1>
